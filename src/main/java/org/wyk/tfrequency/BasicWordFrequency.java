@@ -43,4 +43,9 @@ public class BasicWordFrequency implements WordFrequency, Comparable<BasicWordFr
     public int compareTo(BasicWordFrequency o) {
         return (this.getFrequency() < o.getFrequency()) ? 1 : ((this.getFrequency() == o.getFrequency()) ? 0 : -1);
     }
+
+    @Override
+    public String toString(){
+        return "{\"" + this.word + "\", " + this.freq + "}";
+    }
 }

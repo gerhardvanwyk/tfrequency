@@ -1,6 +1,7 @@
 package org.wyk.tfrequency;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -79,22 +80,26 @@ public class WordFrequencyCollector {
                 .sorted()
                 .collect(Collectors.toList());
 
-        List<WordFrequency> st = words.subList( 0, n);
+        List<WordFrequency> st = new ArrayList<>(words.subList( 0, n));
 
         WordFrequency last = st.get(st.size() -1);
         List<WordFrequency> same = new ArrayList<>();
+        same.add(last);
+        st.remove(last);
         for(int i = start; i < words.size(); i++){
             WordFrequency in = words.get(i);
             if(in.getFrequency() == last.getFrequency()){
                 same.add(in);
             }
         }
-        st.addAll(same);
-        List<WordFrequency> res = st.stream().sorted((o1, o2) -> {
+
+        List<WordFrequency> res = same.stream().sorted((o1, o2) -> {
             String s1 = o1.getWord();
             String s2 = o2.getWord();
             return s1.compareTo(s2);
         }).collect(Collectors.toList());
-        return res;
+
+        st.addAll(res);
+        return st;
     }
 }
