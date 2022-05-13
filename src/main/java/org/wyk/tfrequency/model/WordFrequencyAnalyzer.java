@@ -1,4 +1,4 @@
-package org.wyk.tfrequency;
+package org.wyk.tfrequency.model;
 
 import java.util.List;
 

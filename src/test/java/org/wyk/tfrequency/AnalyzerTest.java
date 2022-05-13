@@ -2,6 +2,8 @@ package org.wyk.tfrequency;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.wyk.tfrequency.model.Analyzer;
+import org.wyk.tfrequency.model.WordFrequency;
 
 import java.util.List;
 
