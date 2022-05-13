@@ -29,7 +29,6 @@ public class WordFrequencyCollector {
             BasicWordFrequency wf = new BasicWordFrequency(word, 1);
             words.add(wf);
         }
-
     }
 
     /**
