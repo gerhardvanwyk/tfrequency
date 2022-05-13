@@ -4,16 +4,37 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class WordFrequencyCollector {
 
-    private Set<WordFrequency> words = new HashSet<>();
+
+    private static final Logger logger = Logger.getLogger(WordFrequencyCollector.class.getName());
+
+
+    private List<WordFrequency> words = new ArrayList<>();
 
     /**
      * Adds a word to this collections
      * @param word
      */
     public void addWord(String word){
+        BasicWordFrequency wf = new BasicWordFrequency(word, 1);
+
+        if(words.contains(wf)){
+            int i = words.indexOf(wf);
+            wf = (BasicWordFrequency) words;
+            wf
+
+        }else{
+            words.add(wf)
+        }
+
+        if(words.add(wf)){
+            logger.finest("Add new word");
+        }else{
+            words.
+        }
 
     }
 

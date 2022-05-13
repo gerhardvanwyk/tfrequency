@@ -2,11 +2,12 @@ package org.wyk.tfrequency;
 
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.logging.Logger;
 
 public class Analyzer implements WordFrequencyAnalyzer{
 
 
-    private static final Logger logger = LoggerFactory
+    private static final Logger logger = Logger.getLogger(Analyzer.class.getName());
 
     @Override
     public int calculateHighestFrequency(String text) {
