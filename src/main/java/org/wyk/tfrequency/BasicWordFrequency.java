@@ -2,7 +2,7 @@ package org.wyk.tfrequency;
 
 import java.util.Objects;
 
-public class BasicWordFrequency implements WordFrequency, Comparable<Integer>{
+public class BasicWordFrequency implements WordFrequency, Comparable<BasicWordFrequency>{
 
     private final String word;
     private Integer freq;
@@ -40,7 +40,7 @@ public class BasicWordFrequency implements WordFrequency, Comparable<Integer>{
     }
 
     @Override
-    public int compareTo(Integer o) {
-        return o.compareTo(o);
+    public int compareTo(BasicWordFrequency o) {
+        return (this.getFrequency() < o.getFrequency()) ? 1 : ((this.getFrequency() == o.getFrequency()) ? 0 : -1);
     }
 }

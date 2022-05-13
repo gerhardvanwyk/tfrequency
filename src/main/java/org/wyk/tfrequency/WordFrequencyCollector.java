@@ -1,12 +1,7 @@
 package org.wyk.tfrequency;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -67,29 +62,39 @@ public class WordFrequencyCollector {
     public List<WordFrequency> getHighestFrequency(){
 
         final int[] h = {0};
-        words.stream().forEach(new Consumer<WordFrequency>() {
-            @Override
-            public void accept(WordFrequency wordFrequency) {
-                if(wordFrequency.getFrequency() > h[0]){
-                    h[0] = wordFrequency.getFrequency();
-                }
+        words.stream().forEach(wordFrequency -> {
+            if(wordFrequency.getFrequency() > h[0]){
+                h[0] = wordFrequency.getFrequency();
             }
         });
 
-        List<WordFrequency> highest = words.stream().filter(new Predicate<WordFrequency>() {
-            @Override
-            public boolean test(WordFrequency wordFrequency) {
-                return wordFrequency.getFrequency() == h[0];
-
-            }
-        }).collect(Collectors.toList());
+        List<WordFrequency> highest = words.stream()
+                .filter(wordFrequency -> wordFrequency.getFrequency() == h[0]).collect(Collectors.toList());
         return highest;
     }
 
     public List<WordFrequency> getHighestN(int n){
-        return words.stream()
+        int start = (words.size() - 1) - n;
+        words =  words.stream()
                 .sorted()
-                .collect(Collectors.toList())
-                .subList( (words.size() - 1) - n, words.size());
+                .collect(Collectors.toList());
+
+        List<WordFrequency> st = words.subList( 0, n);
+
+        WordFrequency last = st.get(st.size() -1);
+        List<WordFrequency> same = new ArrayList<>();
+        for(int i = start; i < words.size(); i++){
+            WordFrequency in = words.get(i);
+            if(in.getFrequency() == last.getFrequency()){
+                same.add(in);
+            }
+        }
+        st.addAll(same);
+        List<WordFrequency> res = st.stream().sorted((o1, o2) -> {
+            String s1 = o1.getWord();
+            String s2 = o2.getWord();
+            return s1.compareTo(s2);
+        }).collect(Collectors.toList());
+        return res;
     }
 }

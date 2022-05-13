@@ -73,5 +73,27 @@ public class WordFrequencyCollectorTest {
 
     }
 
+    @Test
+    public void get_N_highest_words(){
+        WordFrequencyCollector collector = new WordFrequencyCollector();
+        collector.addWord("void");
+        collector.increment("void"); collector.increment("void");
+        collector.addWord("float");
+        collector.increment("float"); collector.increment("float");
+        collector.addWord("int");
+        collector.addWord("long"); collector.increment("long");
+        collector.addWord("double"); collector.increment("double");
+        collector.increment("double"); collector.increment("double");
+        List<WordFrequency> high = collector.getHighestN(2);
+        Assertions.assertEquals(3, high.size());
+        Assertions.assertEquals(4, high.get(0).getFrequency());
+        Assertions.assertEquals("double", high.get(0).getWord());
+        Assertions.assertEquals(3, high.get(1).getFrequency());
+        Assertions.assertEquals("float", high.get(1).getWord());
+        Assertions.assertEquals(3, high.get(2).getFrequency());
+        Assertions.assertEquals("void", high.get(2).getWord());
+
+    }
+
 
 }
