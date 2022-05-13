@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -83,12 +84,13 @@ public class WordFrequencyCollector {
 
             }
         }).collect(Collectors.toList());
-
         return highest;
-
     }
 
-    public List<WordFrequency> getHighestN(Long n){
-
+    public List<WordFrequency> getHighestN(int n){
+        return words.stream()
+                .sorted()
+                .collect(Collectors.toList())
+                .subList( (words.size() - 1) - n, words.size());
     }
 }

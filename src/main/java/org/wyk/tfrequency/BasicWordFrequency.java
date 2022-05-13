@@ -2,7 +2,7 @@ package org.wyk.tfrequency;
 
 import java.util.Objects;
 
-public class BasicWordFrequency implements WordFrequency{
+public class BasicWordFrequency implements WordFrequency, Comparable<Integer>{
 
     private final String word;
     private Integer freq;
@@ -37,5 +37,10 @@ public class BasicWordFrequency implements WordFrequency{
     @Override
     public int hashCode() {
         return Objects.hash(word);
+    }
+
+    @Override
+    public int compareTo(Integer o) {
+        return o.compareTo(o);
     }
 }
