@@ -114,9 +114,40 @@ public class WordFrequencyCollectorTest {
         Assertions.assertEquals(4, high.get(0).getFrequency());
         Assertions.assertEquals("jump", high.get(0).getWord());
         Assertions.assertEquals(2, high.get(1).getFrequency());
-        Assertions.assertEquals("the", high.get(1).getWord());
+        Assertions.assertEquals("brown", high.get(1).getWord());
         Assertions.assertEquals(2, high.get(2).getFrequency());
-        Assertions.assertEquals("brown", high.get(2).getWord());
+        Assertions.assertEquals("the", high.get(2).getWord());
+    }
+
+    @Test
+    public void get_6N_highest_words_sen(){
+        WordFrequencyCollector collector = new WordFrequencyCollector();
+
+        addWordNTimes(4, "jump", collector);
+        addWordNTimes(2, "the", collector);
+        addWordNTimes(2, "brown", collector);
+        addWordNTimes(1, "fox", collector);
+        addWordNTimes(1, "over", collector);
+        addWordNTimes(1, "moon", collector);
+        addWordNTimes(1, "that", collector);
+        addWordNTimes(1, "jumps", collector);
+        addWordNTimes(1, "on", collector);
+        addWordNTimes(1, "dusky", collector);
+        addWordNTimes(1, "eves", collector);
+
+        List<WordFrequency> high = collector.getHighestN(6);
+        Assertions.assertEquals(11, high.size());
+        Assertions.assertEquals(4, high.get(0).getFrequency());
+        Assertions.assertEquals("jump", high.get(0).getWord());
+        Assertions.assertEquals(2, high.get(1).getFrequency());
+        Assertions.assertEquals("brown", high.get(1).getWord());
+        Assertions.assertEquals(2, high.get(2).getFrequency());
+        Assertions.assertEquals("the", high.get(2).getWord());
+
+        Assertions.assertEquals(1, high.get(6).getFrequency());
+        Assertions.assertEquals("jumps", high.get(6).getWord());
+        Assertions.assertEquals(1, high.get(10).getFrequency());
+        Assertions.assertEquals("that", high.get(10).getWord());
     }
 
     private void addWordNTimes(int  n, String w, WordFrequencyCollector c){
