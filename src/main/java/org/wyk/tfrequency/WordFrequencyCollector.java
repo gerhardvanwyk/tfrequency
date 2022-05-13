@@ -21,7 +21,7 @@ public class WordFrequencyCollector {
         if(getWord(word) != null){
             increment(word);
         }else{
-            BasicWordFrequency wf = new BasicWordFrequency(word, 1);
+            BasicWordFrequency wf = new BasicWordFrequency(word.toLowerCase(), 1);
             words.add(wf);
         }
     }

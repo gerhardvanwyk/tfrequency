@@ -38,7 +38,9 @@ public class Analyzer implements WordFrequencyAnalyzer{
     private void parse(String text){
         StringTokenizer st = new StringTokenizer(text);
         while (st.hasMoreTokens()) {
-            collector.addWord(st.nextToken());
+            String ws = st.nextToken();
+            ws = ws.replaceAll("[^A-Za-z0-9]", "");
+            collector.addWord(ws);
         }
     }
 }
