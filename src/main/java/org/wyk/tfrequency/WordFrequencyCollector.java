@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class WordFrequencyCollector {
 
@@ -19,21 +22,11 @@ public class WordFrequencyCollector {
      * @param word
      */
     public void addWord(String word){
-        BasicWordFrequency wf = new BasicWordFrequency(word, 1);
-
-        if(words.contains(wf)){
-            int i = words.indexOf(wf);
-            wf = (BasicWordFrequency) words;
-            wf
-
+        if(getWord(word) != null){
+            increment(word);
         }else{
-            words.add(wf)
-        }
-
-        if(words.add(wf)){
-            logger.finest("Add new word");
-        }else{
-            words.
+            BasicWordFrequency wf = new BasicWordFrequency(word, 1);
+            words.add(wf);
         }
 
     }
@@ -44,19 +37,54 @@ public class WordFrequencyCollector {
      * @param word
      */
     public void increment(String word){
-
+        if(getWord(word) == null) {
+            addWord(word);
+        }else {
+            BasicWordFrequency wf = new BasicWordFrequency(word, 0);
+            int i = words.indexOf(wf);
+            wf = (BasicWordFrequency) words.get(i);
+            wf.increment();
+        }
     }
 
     /**
      * Returns the <word, frequency>
      * @param word
-     * @return
+     * @return the WordFrequency, null if not found
+     *
      */
     public WordFrequency getWord(String word){
-
+        BasicWordFrequency wf = new BasicWordFrequency(word, 1);
+        if(words.contains(wf)){
+            int i = words.indexOf(wf);
+            wf = (BasicWordFrequency) words.get(i);
+            return wf;
+        }else{
+            return null;
+        }
     }
 
     public List<WordFrequency> getHighestFrequency(){
+
+        final int[] h = {0};
+        words.stream().forEach(new Consumer<WordFrequency>() {
+            @Override
+            public void accept(WordFrequency wordFrequency) {
+                if(wordFrequency.getFrequency() > h[0]){
+                    h[0] = wordFrequency.getFrequency();
+                }
+            }
+        });
+
+        List<WordFrequency> highest = words.stream().filter(new Predicate<WordFrequency>() {
+            @Override
+            public boolean test(WordFrequency wordFrequency) {
+                return wordFrequency.getFrequency() == h[0];
+
+            }
+        }).collect(Collectors.toList());
+
+        return highest;
 
     }
 
