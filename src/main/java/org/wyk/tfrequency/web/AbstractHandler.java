@@ -26,5 +26,5 @@ public abstract class AbstractHandler {
         return analyzer;
     }
 
-    public abstract void handleGet(HttpExchange exchange);
+    public abstract void handleGet(HttpExchange exchange) throws IOException;
 }

@@ -13,7 +13,22 @@ public class FrequencyForWordHandler extends AbstractHandler implements HttpHand
     }
 
     @Override
-    public void handleGet(HttpExchange exchange) {
+    public void handleGet(HttpExchange exchange) throws IOException {
+        String params = exchange
+                .getRequestURI()
+                .toString()
+                .split("\\?")[1];
 
+        //word=the;text=the brown fox
+        String[] vals = params.split("\\;");
+        String word = vals[0].split("\\=")[1];
+        String text = vals[0].split("\\=")[1];
+
+        int r = getAnalyzer().calculateFrequencyForWord(word, text);
+        String res = String.valueOf(r);
+        exchange.sendResponseHeaders(200, res.length() );
+        exchange.getResponseBody().write(res.getBytes());
+        exchange.getResponseBody().flush();
+        exchange.getResponseBody().close();
     }
 }
