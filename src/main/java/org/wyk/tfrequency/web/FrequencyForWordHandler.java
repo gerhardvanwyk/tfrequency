@@ -20,7 +20,7 @@ public class FrequencyForWordHandler extends AbstractHandler implements HttpHand
                 .split("\\?")[1];
 
         //word=the;text=the brown fox
-        String[] vals = params.split("\\;");
+        String[] vals = params.split("\\&");
         String word = vals[0].split("\\=")[1];
         String text = vals[0].split("\\=")[1];
 

@@ -23,7 +23,7 @@ public class MostFrequentNWords extends AbstractHandler implements HttpHandler {
                 .split("\\?")[1];
 
         //n=5;text=the brown fox
-        String[] vals = params.split("\\;");
+        String[] vals = params.split("\\&");
         String nw = vals[0].split("\\=")[1];
         int n = Integer.valueOf(nw);
         String text = vals[0].split("\\=")[1];
