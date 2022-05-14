@@ -4,6 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 
 public class FrequencyForWordHandler extends AbstractHandler implements HttpHandler {
 
@@ -14,17 +16,17 @@ public class FrequencyForWordHandler extends AbstractHandler implements HttpHand
 
     @Override
     public void handleGet(HttpExchange exchange) throws IOException {
-        String params = exchange
+        String uri = exchange
                 .getRequestURI()
-                .toString()
-                .split("\\?")[1];
+                .toString();
+        String[] params = uri.split("\\?");
 
-        //word=the;text=the brown fox
-        String[] vals = params.split("\\&");
+        //word=the&text=the brown fox
+        String[] vals = URLDecoder.decode(params[1], Charset.defaultCharset()).split("\\&");
         String word = vals[0].split("\\=")[1];
-        String text = vals[0].split("\\=")[1];
+        String text = vals[1].split("\\=")[1];
 
-        int r = getAnalyzer().calculateFrequencyForWord(word, text);
+        int r = getAnalyzer().calculateFrequencyForWord( text, word);
         String res = String.valueOf(r);
         exchange.sendResponseHeaders(200, res.length() );
         exchange.getResponseBody().write(res.getBytes());

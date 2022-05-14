@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 public class Analyzer implements WordFrequencyAnalyzer{
 
-    private WordFrequencyCollector collector = new WordFrequencyCollector();
+    private WordFrequencyCollector collector;
 
     @Override
     public int calculateHighestFrequency(String text) {
@@ -32,6 +32,7 @@ public class Analyzer implements WordFrequencyAnalyzer{
     }
 
     private void parse(String text){
+        collector = new WordFrequencyCollector();
         StringTokenizer st = new StringTokenizer(text);
         while (st.hasMoreTokens()) {
             String ws = st.nextToken();

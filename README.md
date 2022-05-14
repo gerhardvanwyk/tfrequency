@@ -39,15 +39,15 @@ Implement the three methods defined in this interface
 
 CalculateHighestFrequency
 ```bash
-curl -i -X GET http://localhost:8080/hf?text=The brown fox, jump, over the moon that jump, jump and jumps on brown dusky eves.
+curl -i -X GET http://localhost:8080/hf?text=The%20brown%20fox%2C%20jump%2C%20over%20the%20moon%20that%20jump%2C%20jump%20and%20jumps%20on%20brown%20dusky%20eves%2E
 ```
 
 CalculateFrequencyForWord
 ```bash
-curl -i -X GET http://localhost:8080/ffw?word=the&text=The brown fox, jump, over the moon that jump, jump and jumps on brown dusky eves.
+curl -i -X GET http://localhost:8080/ffw?word=the%26text=The%20brown%20fox%2C%20jump%2C%20over%20the%20moon%20that%20jump%2C%20jump%20and%20jumps%20on%20brown%20dusky%20eves%2E
 ```
 
 CalculateMostFrequentNWords
 ```bash
-curl -i -X GET http://localhost:8080/mfnw?n=3&text=The brown fox, jump, over the moon that jump, jump and jumps on brown dusky eves.
+curl -i -X GET http://localhost:8080/mfnw?n=3%26text=The%20brown%20fox%2C%20jump%2C%20over%20the%20moon%20that%20jump%2C%20jump%20and%20jumps%20on%20brown%20dusky%20eves%2E
 ```

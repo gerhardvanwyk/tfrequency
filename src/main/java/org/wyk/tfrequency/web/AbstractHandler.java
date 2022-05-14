@@ -11,9 +11,16 @@ public abstract class AbstractHandler {
 
     public void handle(HttpExchange exchange) throws IOException {
         if("GET".equals(exchange.getRequestMethod())){
-            handleGet(exchange);
+            try {
+                handleGet(exchange);
+            }catch(Throwable e){
+                String out = "Server error: '" + e.getMessage() + "'";
+                exchange.sendResponseHeaders(500, out.length());
+                exchange.getResponseBody().write(out.getBytes());
+                exchange.getResponseBody().flush();
+                exchange.getResponseBody().close();
+            }
         }else {
-
             String out = "Path with Method not found";
             exchange.sendResponseHeaders(404, out.length());
             exchange.getResponseBody().write(out.getBytes());

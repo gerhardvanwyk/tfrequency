@@ -5,6 +5,8 @@ import com.sun.net.httpserver.HttpHandler;
 import org.wyk.tfrequency.model.Analyzer;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 
 public class HighestFrequencyHandler extends  AbstractHandler implements HttpHandler {
 
@@ -24,6 +26,7 @@ public class HighestFrequencyHandler extends  AbstractHandler implements HttpHan
                 .split("\\?")[1];
 
         String val = params.split("\\=")[1];
+        val = URLDecoder.decode(val, Charset.defaultCharset());
 
         int r = getAnalyzer().calculateHighestFrequency(val);
         String res = String.valueOf(r);

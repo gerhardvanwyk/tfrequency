@@ -6,7 +6,11 @@ import java.util.stream.Collectors;
 
 public class WordFrequencyCollector {
 
-    private List<WordFrequency> words = new ArrayList<>();
+    private List<WordFrequency> words;
+
+    public  WordFrequencyCollector(){
+        words = new ArrayList<>();
+    }
 
     /**
      * Adds a word to this collections

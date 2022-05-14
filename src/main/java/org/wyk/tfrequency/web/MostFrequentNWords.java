@@ -5,6 +5,8 @@ import com.sun.net.httpserver.HttpHandler;
 import org.wyk.tfrequency.model.WordFrequency;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.List;
 
 public class MostFrequentNWords extends AbstractHandler implements HttpHandler {
@@ -17,16 +19,16 @@ public class MostFrequentNWords extends AbstractHandler implements HttpHandler {
     @Override
     public void handleGet(HttpExchange exchange) throws IOException {
 
-        String params = exchange
+        String uri = exchange
                 .getRequestURI()
-                .toString()
-                .split("\\?")[1];
+                .toString();
+        String[] params = uri.split("\\?");
 
-        //n=5;text=the brown fox
-        String[] vals = params.split("\\&");
+        //word=the&text=the brown fox
+        String[] vals = URLDecoder.decode(params[1], Charset.defaultCharset()).split("\\&");
         String nw = vals[0].split("\\=")[1];
+        String text = vals[1].split("\\=")[1];
         int n = Integer.valueOf(nw);
-        String text = vals[0].split("\\=")[1];
 
         List<WordFrequency> r = getAnalyzer().calculateMostFrequentNWords( text, n);
         String res = String.valueOf(r);
